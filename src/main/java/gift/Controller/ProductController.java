@@ -1,6 +1,7 @@
 package gift.Controller;
 
 import gift.DTO.ProductDTO;
+import gift.DTO.ProductResponseDTO;
 import gift.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,48 +38,48 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "Product not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Long id) {
         return productService.findProductById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "상품 생성", description = "상품을 생성합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully created product"),
-            @ApiResponse(responseCode = "400", description = "Invalid input data")
-    })
-    @PostMapping
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
-        return productService.saveProduct(productDTO);
-    }
+//    @Operation(summary = "상품 생성", description = "상품을 생성합니다.")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Successfully created product"),
+//            @ApiResponse(responseCode = "400", description = "Invalid input data")
+//    })
+//    @PostMapping
+//    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
+//        return productService.saveProduct(productDTO);
+//    }
 
-    @Operation(summary = "상품 수정", description = "상품을 수정합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully updated product"),
-            @ApiResponse(responseCode = "404", description = "Product not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid input data")
-    })
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
-        try {
-            ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
-            return ResponseEntity.ok(updatedProduct);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @Operation(summary = "상품 수정", description = "상품을 수정합니다.")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Successfully updated product"),
+//            @ApiResponse(responseCode = "404", description = "Product not found"),
+//            @ApiResponse(responseCode = "400", description = "Invalid input data")
+//    })
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO) {
+//        try {
+//            ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
+//            return ResponseEntity.ok(updatedProduct);
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-    @Operation(summary = "상품 삭제", description = "상품을 삭제합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Successfully deleted product"),
-            @ApiResponse(responseCode = "404", description = "Product not found")
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @Operation(summary = "상품 삭제", description = "상품을 삭제합니다.")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "204", description = "Successfully deleted product"),
+//            @ApiResponse(responseCode = "404", description = "Product not found")
+//    })
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+//        productService.deleteProduct(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
     @Operation(summary = "상품 리스트 조회", description = "상품의 id와 이름을 반환합니다.")
     @ApiResponses(value = {

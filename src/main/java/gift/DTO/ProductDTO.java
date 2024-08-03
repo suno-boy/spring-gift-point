@@ -1,6 +1,5 @@
 package gift.DTO;
 
-import gift.Entity.OptionEntity;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.List;

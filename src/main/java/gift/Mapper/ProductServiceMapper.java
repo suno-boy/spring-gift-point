@@ -1,9 +1,6 @@
 package gift.Mapper;
 
-import gift.DTO.ProductDTO;
-import gift.DTO.WishDTO;
-import gift.DTO.CategoryDTO;
-import gift.DTO.OptionDTO;
+import gift.DTO.*;
 import gift.Entity.*;
 import org.springframework.stereotype.Component;
 
@@ -108,5 +105,16 @@ public class ProductServiceMapper {
                     return optionEntity;
                 })
                 .collect(Collectors.toList());
+    }
+
+
+    public ProductResponseDTO toResponseDTO(ProductEntity productEntity) {
+        return new ProductResponseDTO(
+                productEntity.getId(),
+                productEntity.getName(),
+                productEntity.getPrice(),
+                productEntity.getImageUrl(),
+                productEntity.getCategory() != null ? productEntity.getCategory().getId() : null
+        );
     }
 }

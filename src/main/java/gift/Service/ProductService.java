@@ -1,6 +1,7 @@
 package gift.Service;
 
 import gift.DTO.ProductDTO;
+import gift.DTO.ProductResponseDTO;
 import gift.Entity.ProductEntity;
 import gift.Repository.ProductRepository;
 import gift.Mapper.ProductServiceMapper;
@@ -26,9 +27,9 @@ public class ProductService {
         return productServiceMapper.convertToProductDTOs(productEntities);
     }
 
-    public Optional<ProductDTO> findProductById(Long id) {
+    public Optional<ProductResponseDTO> findProductById(Long id) {
         Optional<ProductEntity> productEntity = productRepository.findById(id);
-        return productEntity.map(productServiceMapper::convertToDTO);
+        return productEntity.map(productServiceMapper::toResponseDTO);
     }
 
     public ProductDTO saveProduct(ProductDTO productDTO) {

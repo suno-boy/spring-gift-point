@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@Table(name = "Product")
 public class ProductEntity {
 
     @Id
@@ -35,8 +36,7 @@ public class ProductEntity {
 
     public ProductEntity() {}
 
-    public ProductEntity(Long id, String name, int price, String imageUrl) {
-        this.id = id;
+    public ProductEntity(String name, int price, String imageUrl) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
