@@ -11,6 +11,10 @@ public class JwtTokenUtil {
     @Value("${jwt.secret}")
     private String secret;
 
+    public String getUsernameFromToken(String token) {
+        return extractUsername(token);
+    }
+
     public String extractUsername(String token) {
         return getClaimsFromToken(token).getSubject();
     }

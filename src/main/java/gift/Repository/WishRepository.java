@@ -15,4 +15,5 @@ public interface WishRepository extends JpaRepository<WishEntity, Long> {
     List<WishEntity> findByUserId(Long id);
     List<WishEntity> findByProductIdAndUserId(Long productId, Long userId);
     Page<WishEntity> findByUser(UserEntity user, Pageable pageable);
+    List<WishEntity> findByUser(UserEntity user);
 }

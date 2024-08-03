@@ -1,6 +1,8 @@
 package gift.Controller;
 
 import gift.DTO.WishDTO;
+import gift.DTO.WishRequestDTO;
+import gift.DTO.WishResponseDTO;
 import gift.Service.WishService;
 import gift.Mapper.WishServiceMapper;
 import gift.util.CustomPageResponse;
@@ -105,4 +107,23 @@ public class WishController {
 
         return ResponseEntity.ok(response);
     }
+
+    @Operation(summary = "위시리스트에 상품 추가", description = "사용자의 위시리스트에 상품을 추가합니다.")
+    @PostMapping
+    public ResponseEntity<WishResponseDTO> addProductToWishList(
+            @RequestHeader("Authorization") String authorization,
+            @RequestBody WishRequestDTO wishRequestDTO) {
+        String token = authorization.substring(7); // "Bearer " 이후의 토큰 문자열
+        WishResponseDTO response = wishService.addProductToWishList(token, wishRequestDTO);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "위시리스트 상품 삭제", description = " .", security = @SecurityRequirement(name = "bearerAuth"))
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWish(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        wishService.deleteWish(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

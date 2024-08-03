@@ -2,6 +2,8 @@ package gift.Entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class WishEntity {
 
@@ -17,6 +19,7 @@ public class WishEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     private String productName;
 

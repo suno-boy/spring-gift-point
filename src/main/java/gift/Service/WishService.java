@@ -1,9 +1,13 @@
 package gift.Service;
 
 import gift.DTO.WishDTO;
+import gift.DTO.WishRequestDTO;
+import gift.DTO.WishResponseDTO;
+import gift.Entity.ProductEntity;
 import gift.Entity.UserEntity;
 import gift.Entity.WishEntity;
 import gift.Mapper.WishServiceMapper;
+import gift.Repository.ProductRepository;
 import gift.Repository.UserRepository;
 import gift.Repository.WishRepository;
 import gift.util.JwtTokenUtil;
@@ -23,12 +27,14 @@ public class WishService {
     private WishServiceMapper wishServiceMapper;
     private JwtTokenUtil jwtTokenUtil;
     private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public WishService(WishRepository wishRepository, UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
+    public WishService(WishRepository wishRepository, UserRepository userRepository, JwtTokenUtil jwtTokenUtil, ProductRepository productRepository) {
         this.wishRepository = wishRepository;
         this.userRepository = userRepository;
         this.jwtTokenUtil = jwtTokenUtil;
+        this.productRepository = productRepository;
     }
 
     public List<WishDTO> findAllWishes() {
@@ -79,5 +85,21 @@ public class WishService {
                 wish.getProduct().getPrice(),
                 wish.getProduct().getImageUrl()
         ));
+    }
+
+    public WishResponseDTO addProductToWishList(String token, WishRequestDTO wishRequestDTO) {
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Optional<UserEntity> user = userRepository.findByEmail(username);
+
+        Optional<ProductEntity> productOpt = productRepository.findById(wishRequestDTO.getId());
+        if (productOpt.isEmpty()) {
+            throw new RuntimeException("Product not found");
+        }
+
+        ProductEntity product = productOpt.get();
+        WishEntity wish = new WishEntity(user.orElse(null), product);
+        WishEntity savedWish = wishRepository.save(wish);
+
+        return new WishResponseDTO(savedWish.getId(), product.getId());
     }
 }
