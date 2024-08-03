@@ -37,8 +37,8 @@ public class OrderEntity {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WishEntity> wishes;
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<WishEntity> wishes;
 
     public OrderEntity() {}
 
@@ -93,13 +93,13 @@ public class OrderEntity {
         this.updatedAt = updatedAt;
     }
 
-    public List<WishEntity> getWishes() {
-        return wishes;
-    }
-
-    public void setWishes(List<WishEntity> wishes) {
-        this.wishes = wishes;
-    }
+//    public List<WishEntity> getWishes() {
+//        return wishes;
+//    }
+//
+//    public void setWishes(List<WishEntity> wishes) {
+//        this.wishes = wishes;
+//    }
 
     public Long getId() {
         return id;

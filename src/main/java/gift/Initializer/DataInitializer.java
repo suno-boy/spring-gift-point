@@ -14,14 +14,16 @@ public class DataInitializer implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private final OptionRepository optionRepository;
     private final OrderRepository orderRepository;
+    private final WishRepository wishRepository;
 
     @Autowired
-    public DataInitializer(ProductRepository productRepository, UserRepository userRepository, CategoryRepository categoryRepository, OptionRepository optionRepository, OrderRepository orderRepository) {
+    public DataInitializer(ProductRepository productRepository, UserRepository userRepository, CategoryRepository categoryRepository, OptionRepository optionRepository, OrderRepository orderRepository, WishRepository wishRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.optionRepository = optionRepository;
         this.orderRepository = orderRepository;
+        this.wishRepository = wishRepository;
     }
 
     @Override
@@ -109,7 +111,13 @@ public class DataInitializer implements CommandLineRunner {
         orderRepository.save(order5);
         orderRepository.save(order6);
 
+        WishEntity wish1 = new WishEntity(user1, product1);
+        WishEntity wish2 = new WishEntity(user2, product2);
+        WishEntity wish3 = new WishEntity(user3, product3);
 
+        wishRepository.save(wish1);
+        wishRepository.save(wish2);
+        wishRepository.save(wish3);
 
     }
 }

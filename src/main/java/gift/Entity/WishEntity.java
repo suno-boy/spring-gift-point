@@ -17,9 +17,6 @@ public class WishEntity {
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
 
     private String productName;
 
@@ -30,6 +27,11 @@ public class WishEntity {
         this.user = user;
         this.product = product;
         this.productName = productName;
+    }
+
+    public WishEntity(UserEntity user, ProductEntity product) {
+        this.user = user;
+        this.product = product;
     }
 
     public Long getId() {
