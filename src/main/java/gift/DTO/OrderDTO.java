@@ -1,5 +1,7 @@
 package gift.DTO;
 
+import gift.Entity.OrderEntity;
+
 import java.time.LocalDateTime;
 
 public class OrderDTO {
@@ -13,6 +15,8 @@ public class OrderDTO {
     private LocalDateTime updatedAt;
     private String optionName;
 
+    private Long userId;
+
     public OrderDTO(Long productId, String productName, int productPrice, Long optionId, Long quantity, LocalDateTime createdAt, LocalDateTime updatedAt, String optionName) {
         this.productId = productId;
         this.productName = productName;
@@ -22,6 +26,12 @@ public class OrderDTO {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.optionName = optionName;
+    }
+
+    public OrderDTO(OrderEntity order) {
+        this.userId = order.getUser().getId();
+        this.optionId = order.getOption().getId();
+        this.quantity = order.getQuantity();
     }
 
     // Getter 및 Setter 메서드

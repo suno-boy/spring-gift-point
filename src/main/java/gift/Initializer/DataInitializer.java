@@ -96,12 +96,18 @@ public class DataInitializer implements CommandLineRunner {
 
         // Order 초기 데이터 삽입
         OrderEntity order1 = new OrderEntity(product1, option1_1, 1L);
-//        OrderEntity order2 = new OrderEntity(product2, option2_1, 1L);
-//        OrderEntity order3 = new OrderEntity(product3, option3_1, 1L);
+        OrderEntity order2 = new OrderEntity(product2, option2_1, 1L);
+        OrderEntity order3 = new OrderEntity(product3, option3_1, 1L);
+        OrderEntity order4 = new OrderEntity(product3, option3_1, 1L);
+        OrderEntity order5 = new OrderEntity(product3, option3_1, 1L);
+        OrderEntity order6 = new OrderEntity(product3, option3_1, 1L);
 
         orderRepository.save(order1);
-//        orderRepository.save(order2);
-//        orderRepository.save(order3);
+        orderRepository.save(order2);
+        orderRepository.save(order3);
+        orderRepository.save(order4);
+        orderRepository.save(order5);
+        orderRepository.save(order6);
 
 
 

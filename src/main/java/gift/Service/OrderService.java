@@ -1,5 +1,6 @@
 package gift.Service;
 
+import gift.DTO.OrderDTO;
 import gift.DTO.OrderRequestDTO;
 import gift.DTO.OrderResponseDTO;
 import gift.DTO.OptionDTO;
@@ -94,6 +95,11 @@ public class OrderService {
         optionRepository.save(option);
 
         return order;
+    }
+
+    public Page<OrderDTO> getOrders(Pageable pageable) {
+        return orderRepository.findAll(pageable)
+                .map(OrderDTO::new);
     }
 
 }

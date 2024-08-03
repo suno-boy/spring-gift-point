@@ -60,6 +60,25 @@ public class OrderController {
         );
     }
 
+    @Operation(summary = "상품 주문 목록 조회", description = " ")
+    @GetMapping
+    public ResponseEntity<CustomPageResponse<OrderDTO>> getOrders(
+            @RequestParam(defaultValue = "3") int page,
+            @RequestParam(defaultValue = "3") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<OrderDTO> orderPage = orderService.getOrders(pageable);
+
+        CustomPageResponse<OrderDTO> response = new CustomPageResponse<>(
+                orderPage.getContent(),
+                page,
+                orderPage.getTotalPages(),
+                orderPage.hasNext(),
+                orderPage.getTotalElements()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
 
 
 
