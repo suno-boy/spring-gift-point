@@ -11,13 +11,18 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final InterceptorOfToken interceptorOfToken;
-    private final LoginUserArgumentResolver loginUserArgumentResolver;
-
     @Autowired
-    public WebConfig(InterceptorOfToken interceptorOfToken, LoginUserArgumentResolver loginUserArgumentResolver) {
+    private final InterceptorOfToken interceptorOfToken;
+//    private final LoginUserArgumentResolver loginUserArgumentResolver;
+
+//    @Autowired
+//    public WebConfig(InterceptorOfToken interceptorOfToken, LoginUserArgumentResolver loginUserArgumentResolver) {
+//        this.interceptorOfToken = interceptorOfToken;
+//        this.loginUserArgumentResolver = loginUserArgumentResolver;
+//    }
+
+    public WebConfig(InterceptorOfToken interceptorOfToken) {
         this.interceptorOfToken = interceptorOfToken;
-        this.loginUserArgumentResolver = loginUserArgumentResolver;
     }
 
     @Override
@@ -34,8 +39,8 @@ public class WebConfig implements WebMvcConfigurer {
                 ); // 스웨거 및 공개 경로 예외 처리
     }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(loginUserArgumentResolver);
-    }
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+//        resolvers.add(loginUserArgumentResolver);
+//    }
 }
