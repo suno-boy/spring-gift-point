@@ -46,40 +46,40 @@ public class AuthController {
         return ResponseEntity.ok(authResponse);
     }
 
-    @Operation(summary = "단일 유저 조회", description = " ")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved user"),
-            @ApiResponse(responseCode = "404", description = "User not found")
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        return userServiceMapper.toResponseEntity(userService.findUserById(id));
-    }
-
-    @Operation(summary = "유저 정보 수정", description = "비밀번호 및 이메일 수정")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully updated user"),
-            @ApiResponse(responseCode = "404", description = "User not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid input")
-    })
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        try {
-            UserDTO updatedUser = userService.updateUser(id, userDTO);
-            return ResponseEntity.ok(updatedUser);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @Operation(summary = "유저 삭제", description = " ")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
-            @ApiResponse(responseCode = "404", description = "User not found")
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @Operation(summary = "단일 유저 조회", description = " ")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Successfully retrieved user"),
+//            @ApiResponse(responseCode = "404", description = "User not found")
+//    })
+//    @GetMapping("/{id}")
+//    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+//        return userServiceMapper.toResponseEntity(userService.findUserById(id));
+//    }
+//
+//    @Operation(summary = "유저 정보 수정", description = "비밀번호 및 이메일 수정")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Successfully updated user"),
+//            @ApiResponse(responseCode = "404", description = "User not found"),
+//            @ApiResponse(responseCode = "400", description = "Invalid input")
+//    })
+//    @PutMapping("/{id}")
+//    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+//        try {
+//            UserDTO updatedUser = userService.updateUser(id, userDTO);
+//            return ResponseEntity.ok(updatedUser);
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//    @Operation(summary = "유저 삭제", description = " ")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "204", description = "Successfully deleted user"),
+//            @ApiResponse(responseCode = "404", description = "User not found")
+//    })
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+//        userService.deleteUser(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -59,8 +60,39 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public Page<ProductDTO> getProducts(Pageable pageable) {
-        Page<ProductEntity> productPage = productRepository.findAll(pageable);
-        return productPage.map(productServiceMapper::convertToDTO);
+//    public Page<ProductDTO> getProducts(Pageable pageable) {
+//        Page<ProductEntity> productPage = productRepository.findAll(pageable);
+//        return productPage.map(productServiceMapper::convertToDTO);
+//    }
+
+
+    public Page<ProductDTO> getProducts(Long categoryId, Pageable pageable) {
+        Page<ProductEntity> productPage;
+        if (categoryId == null) {
+            productPage = productRepository.findAll(pageable);
+        } else {
+            productPage = productRepository.findByCategoryId(categoryId, pageable);
+        }
+        return productPage.map(this::convertToDTO);
+    }
+
+    private ProductDTO convertToDTO(ProductEntity product) {
+        List<Long> wishUserIds = product.getWishes().stream()
+                .map(wish -> wish.getUser().getId())
+                .collect(Collectors.toList());
+
+        List<Long> optionsIds = product.getOptions().stream()
+                .map(option -> option.getId())
+                .collect(Collectors.toList());
+
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getImageUrl(),
+                wishUserIds,
+                product.getCategory().getId(),
+                optionsIds
+        );
     }
 }

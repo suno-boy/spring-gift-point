@@ -32,10 +32,16 @@ public class DataInitializer implements CommandLineRunner {
         ProductEntity product1 = new ProductEntity("아이스 카페 아메리카노 T", 4500, "https://st.kakaocdn.net/product/gift/product/20231010111814_9a667f9eccc943648797925498bdd8a3.jpg");
         ProductEntity product2 = new ProductEntity("따뜻한 카페 라떼 T", 5000, "https://img.danawa.com/prod_img/500000/059/749/img/13749059_1.jpg?_v=20220524145210");
         ProductEntity product3 = new ProductEntity("콜드 브루 T", 4800, "https://img.danawa.com/prod_img/500000/658/896/img/17896658_1.jpg?_v=20220923092758");
+        ProductEntity product4 = new ProductEntity("콜라", 500, "https://img.danawa.com/prod_img/500000/658/896/img/17896658_1.jpg?_v=20220923092758");
+        ProductEntity product5 = new ProductEntity("초콜릿", 1000, "https://img.danawa.com/prod_img/500000/658/896/img/17896658_1.jpg?_v=20220923092758");
+        ProductEntity product6 = new ProductEntity("우유", 900, "https://img.danawa.com/prod_img/500000/658/896/img/17896658_1.jpg?_v=20220923092758");
 
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
+        productRepository.save(product4);
+        productRepository.save(product5);
+        productRepository.save(product6);
 
         // User 초기 데이터 삽입
         UserEntity user1 = new UserEntity("user1@naver.com", "password1");

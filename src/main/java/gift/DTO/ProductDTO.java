@@ -19,6 +19,20 @@ public class ProductDTO {
     private CategoryResponseDTO category;
     private List<OptionDTO> options;
 
+    private List<Long> wishUserId;
+    private Long categoryId;
+    private List<Long> optionsId;
+
+    public ProductDTO(Long id, String name, int price, String imageUrl, List<Long> wishUserId, Long categoryId, List<Long> optionsId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.wishUserId = wishUserId;
+        this.categoryId = categoryId;
+        this.optionsId = optionsId;
+    }
+
     public ProductDTO() {}
 
     public void setOptions(List<OptionDTO> options) {

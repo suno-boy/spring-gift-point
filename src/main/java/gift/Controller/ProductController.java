@@ -3,9 +3,12 @@ package gift.Controller;
 import gift.DTO.ProductDTO;
 import gift.DTO.ProductResponseDTO;
 import gift.Service.ProductService;
+import gift.util.CustomPageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -81,12 +84,34 @@ public class ProductController {
 //        return ResponseEntity.noContent().build();
 //    }
 
-    @Operation(summary = "상품 리스트 조회", description = "상품의 id와 이름을 반환합니다.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved paginated list of products")
-    })
+//    @Operation(summary = "상품 리스트 조회", description = "상품의 id와 이름을 반환합니다.")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Successfully retrieved paginated list of products")
+//    })
+//    @GetMapping
+//    public Page<ProductDTO> getProducts(Pageable pageable) {
+//        return productService.getProducts(pageable);
+//    }
+
+    @Operation(summary = "상품 목록 조회", description = "카테고리별로 상품 목록을 페이지 단위로 조회합니다.")
     @GetMapping
-    public Page<ProductDTO> getProducts(Pageable pageable) {
-        return productService.getProducts(pageable);
+    public ResponseEntity<CustomPageResponse<ProductDTO>> getProducts(
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<ProductDTO> productPage = productService.getProducts(categoryId, pageable);
+
+        CustomPageResponse<ProductDTO> response = new CustomPageResponse<>(
+                productPage.getContent(),
+                productPage.getNumber(),
+                productPage.getTotalPages(),
+                productPage.hasNext(),
+                productPage.getTotalElements()
+        );
+
+        return ResponseEntity.ok(response);
     }
+
 }
