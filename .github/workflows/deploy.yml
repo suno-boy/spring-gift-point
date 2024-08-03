@@ -31,11 +31,11 @@ jobs:
 
       # 3. 의존성 설치 및 빌드
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon  # Gradle 빌드 도구를 사용하여 프로젝트를 빌드한다.
+        run: ./gradlew build #--no-daemon  # Gradle 빌드 도구를 사용하여 프로젝트를 빌드한다.
 
       # 4. 테스트 실행
-      - name: Run tests
-        run: ./gradlew test --no-daemon  # 프로젝트의 테스트를 실행하여 코드의 품질을 검증한다.
+      #- name: Run tests
+      #  run: ./gradlew test #--no-daemon  # 프로젝트의 테스트를 실행하여 코드의 품질을 검증한다.
 
   # deploy 작업에서는 빌드 작업이 완료된 후 실행되며, SSH를 통해 서버에 코드를 배포하고
   # 애플리케이션을 실행하는 작업을 포함한다. 또한 민감한 정보(예: 서버 로그인 정보)를
