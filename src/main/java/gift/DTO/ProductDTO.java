@@ -16,7 +16,7 @@ public class ProductDTO {
     private String imageUrl;
 
     private List<WishDTO> wishes;
-    private CategoryDTO category;
+    private CategoryResponseDTO category;
     private List<OptionDTO> options;
 
     public ProductDTO() {}
@@ -29,7 +29,7 @@ public class ProductDTO {
         return wishes;
     }
 
-    public CategoryDTO getCategory() {
+    public CategoryResponseDTO getCategory() {
         return category;
     }
 
@@ -73,7 +73,7 @@ public class ProductDTO {
         this.wishes = wishes;
     }
 
-    public void setCategory(CategoryDTO category) {
+    public void setCategory(CategoryResponseDTO category) {
         this.category = category;
     }
 }

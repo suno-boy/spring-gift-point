@@ -38,22 +38,22 @@ public class ProductService {
         return productServiceMapper.convertToDTO(savedProductEntity);
     }
 
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
-        Optional<ProductEntity> existingProductOption = productRepository.findById(id);
-        if (existingProductOption.isPresent()) {
-            ProductEntity existingProduct = existingProductOption.get();
-            existingProduct.setName(productDTO.getName());
-            existingProduct.setPrice(productDTO.getPrice());
-            existingProduct.setImageUrl(productDTO.getImageUrl());
-            existingProduct.setCategory(productServiceMapper.convertToCategoryEntity(productDTO.getCategory()));
-            existingProduct.setWishes(productServiceMapper.convertToWishEntities(productDTO.getWishes()));
-            existingProduct.setOptions(productServiceMapper.convertToOptionEntities(productDTO.getOptions()));
-            ProductEntity updatedProductEntity = productRepository.save(existingProduct);
-            return productServiceMapper.convertToDTO(updatedProductEntity);
-        } else {
-            throw new RuntimeException("변경하려는 상품이 존재하지 않습니다.");
-        }
-    }
+//    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+//        Optional<ProductEntity> existingProductOption = productRepository.findById(id);
+//        if (existingProductOption.isPresent()) {
+//            ProductEntity existingProduct = existingProductOption.get();
+//            existingProduct.setName(productDTO.getName());
+//            existingProduct.setPrice(productDTO.getPrice());
+//            existingProduct.setImageUrl(productDTO.getImageUrl());
+//            existingProduct.setCategory(productServiceMapper.convertToCategoryEntity(productDTO.getCategory()));
+//            existingProduct.setWishes(productServiceMapper.convertToWishEntities(productDTO.getWishes()));
+//            existingProduct.setOptions(productServiceMapper.convertToOptionEntities(productDTO.getOptions()));
+//            ProductEntity updatedProductEntity = productRepository.save(existingProduct);
+//            return productServiceMapper.convertToDTO(updatedProductEntity);
+//        } else {
+//            throw new RuntimeException("변경하려는 상품이 존재하지 않습니다.");
+//        }
+//    }
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);

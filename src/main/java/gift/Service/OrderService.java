@@ -1,6 +1,5 @@
 package gift.Service;
 
-import gift.DTO.KakaoUserDTO;
 import gift.DTO.OrderRequestDTO;
 import gift.DTO.OrderResponseDTO;
 import gift.DTO.OptionDTO;
@@ -15,6 +14,8 @@ import gift.Repository.ProductRepository;
 import gift.Repository.WishRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,4 +78,22 @@ public class OrderService {
 
         return new OrderResponseDTO(order.getId(), "주문 성공", "주문 성공");
     }
+
+    @Transactional
+    public OrderEntity placeOrder(Long optionId, Long quantity) {
+        OptionEntity option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new RuntimeException("Option not found"));
+        ProductEntity product = option.getProduct();
+
+        // 주문 엔티티 생성 및 저장
+        OrderEntity order = new OrderEntity(product, option, quantity);
+        orderRepository.save(order);
+
+        // 옵션 수량 업데이트
+        option.setQuantity(option.getQuantity() - quantity);
+        optionRepository.save(option);
+
+        return order;
+    }
+
 }
