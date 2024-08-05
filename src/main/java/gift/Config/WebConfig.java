@@ -1,46 +1,37 @@
-//package gift.Config;
-//
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-//import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-//import org.springframework.beans.factory.annotation.Autowired;
-//
-//import java.util.List;
-//
-//@Configuration
-//public class WebConfig implements WebMvcConfigurer {
-//
-//    @Autowired
-//    private final InterceptorOfToken interceptorOfToken;
-////    private final LoginUserArgumentResolver loginUserArgumentResolver;
-//
-////    @Autowired
-////    public WebConfig(InterceptorOfToken interceptorOfToken, LoginUserArgumentResolver loginUserArgumentResolver) {
-////        this.interceptorOfToken = interceptorOfToken;
-////        this.loginUserArgumentResolver = loginUserArgumentResolver;
-////    }
-//
-//    public WebConfig(InterceptorOfToken interceptorOfToken) {
-//        this.interceptorOfToken = interceptorOfToken;
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new InterceptorOfToken())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns(
-//                        "/login",
-//                        "/swagger-ui/**",
-//                        "/v3/api-docs/**",
-//                        "/swagger-resources/**",
-//                        "/webjars/**",
-//                        "/swagger-ui.html"
-//                ); // 스웨거 및 공개 경로 예외 처리
-//    }
-//
-////    @Override
-////    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-////        resolvers.add(loginUserArgumentResolver);
-////    }
-//}
+package gift.Config;
+
+import gift.Interceptor.JwtAuthenticationInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    private final JwtAuthenticationInterceptor jwtAuthenticationInterceptor;
+
+    @Autowired
+    public WebConfig(JwtAuthenticationInterceptor jwtAuthenticationInterceptor) {
+        this.jwtAuthenticationInterceptor = jwtAuthenticationInterceptor;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(jwtAuthenticationInterceptor)
+                .addPathPatterns("/api/**")
+                .excludePathPatterns(
+                        "/api/user/register",
+                        "/api/login",
+                        "/api/product/order/{optionId}",
+                        "/api/product/order",
+                        "/api/products",
+                        "/api/products/{id}",
+                        "/api/products/{productId}/options",
+                        "/api/category",
+                        "/api/wish",
+                        "/api/wish/api/wish",
+                        "/api/wish/{id}"
+                );
+    }
+}
