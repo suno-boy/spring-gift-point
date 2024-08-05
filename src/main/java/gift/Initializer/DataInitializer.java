@@ -3,6 +3,7 @@ package gift.Initializer;
 import gift.Entity.*;
 import gift.Repository.*;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,15 +16,17 @@ public class DataInitializer implements CommandLineRunner {
     private final OptionRepository optionRepository;
     private final OrderRepository orderRepository;
     private final WishRepository wishRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DataInitializer(ProductRepository productRepository, UserRepository userRepository, CategoryRepository categoryRepository, OptionRepository optionRepository, OrderRepository orderRepository, WishRepository wishRepository) {
+    public DataInitializer(ProductRepository productRepository, UserRepository userRepository, CategoryRepository categoryRepository, OptionRepository optionRepository, OrderRepository orderRepository, WishRepository wishRepository, PasswordEncoder passwordEncoder) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.optionRepository = optionRepository;
         this.orderRepository = orderRepository;
         this.wishRepository = wishRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -44,9 +47,9 @@ public class DataInitializer implements CommandLineRunner {
         productRepository.save(product6);
 
         // User 초기 데이터 삽입
-        UserEntity user1 = new UserEntity("user1@naver.com", "password1");
-        UserEntity user2 = new UserEntity("user2@naver.com", "password2");
-        UserEntity user3 = new UserEntity("user3@naver.com", "password3");
+        UserEntity user1 = new UserEntity("user1@naver.com", passwordEncoder.encode("password1"));
+        UserEntity user2 = new UserEntity("user2@naver.com", passwordEncoder.encode("password2"));
+        UserEntity user3 = new UserEntity("user3@naver.com", passwordEncoder.encode("password3"));
 
         userRepository.save(user1);
         userRepository.save(user2);

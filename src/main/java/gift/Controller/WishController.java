@@ -90,7 +90,7 @@ public class WishController {
 //    }
 
     @Operation(summary = "위시리스트 조회", security = @SecurityRequirement(name = "bearerAuth"))
-    @GetMapping("/api/wish")
+    @GetMapping
     public ResponseEntity<CustomPageResponse<WishDTO>> getWishes(
             @Parameter(hidden = true) @PageableDefault Pageable pageable,
             @RequestHeader("Authorization") String authorizationHeader
